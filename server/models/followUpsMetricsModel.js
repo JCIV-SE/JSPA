@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     totalDailyFollowUps: DataTypes.INTEGER,
     currentWeeklyFollowUps: DataTypes.INTEGER,
     currentDailyFollowUps: DataTypes.INTEGER
-  })
+  });
 
   return FollowUpsMetrics;
-}
+};

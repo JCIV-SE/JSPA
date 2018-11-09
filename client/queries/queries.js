@@ -56,10 +56,9 @@ addApplication = `mutation addApp($companyName: String!, $title: String!, $dateA
     UserId,
     ContactId
   }
-}`
-
+}`;
 
 module.exports = {
   allUserData,
   addApplication
-}
+};

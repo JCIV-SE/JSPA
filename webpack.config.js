@@ -1,4 +1,3 @@
-
 const path = require('path');
 
 module.exports = {
@@ -34,17 +33,17 @@ module.exports = {
         type: 'javascript/auto'
       }
     ]
-  },
+  }
   // devServer: {
   //   contentBase: path.join(__dirname, '/dist'),
   //   publicPath: '/dist/',
   //   port: 8080,
   //   historyApiFallback: true,
-    // proxy: [
-    //   {
-    //     context: ['/api', '/auth'],
-    //     target: 'http://localhost:8080'
-    //   }
-    // ]
+  // proxy: [
+  //   {
+  //     context: ['/api', '/auth'],
+  //     target: 'http://localhost:8080'
+  //   }
+  // ]
   // }
 };

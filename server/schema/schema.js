@@ -4,7 +4,7 @@ const Application = require('../models/3-applicationModel');
 const Contact = require('../models/2-contactModel');
 const connectionString = process.env.DB_URL;
 const pgp = require('pg-promise')();
-const db = {}
+const db = {};
 db.conn = pgp(connectionString);
 
 const {
@@ -27,11 +27,11 @@ const UserType = new GraphQLObjectType({
     password: { type: GraphQLString },
     email: { type: GraphQLString },
     phone: { type: GraphQLInt },
-    applications: { 
+    applications: {
       type: new GraphQLList(ApplicationsType),
       resolve(parent, args) {
-        applicationQuery = `SELECT * FROM "public"."Applications" WHERE "UserId"=${parent.id}`
-        return db.conn.many(applicationQuery)
+        applicationQuery = `SELECT * FROM "public"."Applications" WHERE "UserId"=${parent.id}`;
+        return db.conn.many(applicationQuery);
       }
     }
   })
@@ -52,11 +52,11 @@ const ApplicationsType = new GraphQLObjectType({
     notification: { type: GraphQLString },
     ContactId: { type: GraphQLString },
     UserId: { type: GraphQLString },
-    contact: { 
+    contact: {
       type: ContactType,
       resolve(parent, args) {
-        query = `SELECT * FROM "public"."Contacts" WHERE id=${parent.ContactId}`
-        return db.conn.one(query)
+        query = `SELECT * FROM "public"."Contacts" WHERE id=${parent.ContactId}`;
+        return db.conn.one(query);
       }
     }
   })
@@ -83,19 +83,19 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         // postgres query
         query = `SELECT * FROM "public"."Users" WHERE "firstName"='${args.UserName}'`;
-        return db.conn.one(query)
+        return db.conn.one(query);
       }
     },
     allUsers: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
         query = `SELECT * FROM "public"."Users"`;
-        return db.conn.many(query)
+        return db.conn.many(query);
       }
     },
     conatact: {
       type: ContactType,
-      args: { ContactId: {type: GraphQLID} },
+      args: { ContactId: { type: GraphQLID } },
       resolve(parent, args) {
         query = `SELECT * FROM "public"."Contacts" WHERE id=${args.ContactId}`;
         return db.conn.one(query);
@@ -105,12 +105,12 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ContactType),
       resolve(parent, args) {
         const query = `SELECT * FROM "public"."Contacts"`;
-        return db.conn.many(query)
+        return db.conn.many(query);
       }
     },
     application: {
       type: ApplicationsType,
-      args: { ApplicationsId: {type: GraphQLID} },
+      args: { ApplicationsId: { type: GraphQLID } },
       resolve(parent, args) {
         query = `SELECT * FROM "public"."Applications" WHERE id=${args.ApplicationsId}`;
         return db.conn.one(query);
@@ -119,7 +119,7 @@ const RootQuery = new GraphQLObjectType({
     allApplications: {
       type: new GraphQLList(ApplicationsType),
       resolve(parent, args) {
-        query = `SELECT * FROM "public"."Applications"`
+        query = `SELECT * FROM "public"."Applications"`;
         return db.conn.many(query);
       }
     }
@@ -139,7 +139,11 @@ const Mutation = new GraphQLObjectType({
         phone: { type: new GraphQLNonNull(GraphQLInt) }
       },
       resolve(parent, args) {
-        query = `INSERT INTO "public"."Users" ("firstName", "lastName", "password", "email", "phone", "createdAt", "updatedAt") VALUES ('${args.firstName}', '${args.lastName}', '${args.password}', '${args.email}', '${args.phone}', '2018-10-23 01:09:38 +0000', '2018-10-23 01:09:38 +0000')`;
+        query = `INSERT INTO "public"."Users" ("firstName", "lastName", "password", "email", "phone", "createdAt", "updatedAt") VALUES ('${
+          args.firstName
+        }', '${args.lastName}', '${args.password}', '${args.email}', '${
+          args.phone
+        }', '2018-10-23 01:09:38 +0000', '2018-10-23 01:09:38 +0000')`;
         return db.conn.one(query);
       }
     },
@@ -158,7 +162,11 @@ const Mutation = new GraphQLObjectType({
         ContactId: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parents, args) {
-        query = `INSERT INTO "public"."Applications" ("companyName", "title", "dateApplied", "link", "description", "notes", "status", "notification", "UserId", "ContactId") VALUES ('${args.companyName}', '${args.title}', '${args.dateApplied}', '${args.link}', '${args.description}', '${args.notes}', '${args.status}', '${args.notification}', '${args.UserId}', '${args.ContactId}')`;
+        query = `INSERT INTO "public"."Applications" ("companyName", "title", "dateApplied", "link", "description", "notes", "status", "notification", "UserId", "ContactId") VALUES ('${
+          args.companyName
+        }', '${args.title}', '${args.dateApplied}', '${args.link}', '${args.description}', '${
+          args.notes
+        }', '${args.status}', '${args.notification}', '${args.UserId}', '${args.ContactId}')`;
         return db.conn.one(query);
       }
     },
@@ -171,14 +179,18 @@ const Mutation = new GraphQLObjectType({
         phone: { type: new GraphQLNonNull(GraphQLInt) }
       },
       resolve(parent, args) {
-        query = `INSERT INTO "public"."Contacts" ("firstName", "lastName", "email", "phone", "createdAt", "updatedAt") VALUES (${args.firstName}, ${args.lastName}, ${args.email}, ${args.phone}, '2013-07-13 14:35:00 +0000', '2013-07-13 14:35:00 +0000')`
+        query = `INSERT INTO "public"."Contacts" ("firstName", "lastName", "email", "phone", "createdAt", "updatedAt") VALUES (${
+          args.firstName
+        }, ${args.lastName}, ${args.email}, ${
+          args.phone
+        }, '2013-07-13 14:35:00 +0000', '2013-07-13 14:35:00 +0000')`;
         return newContact.save();
       }
     }
   }
-})
+});
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
   mutation: Mutation
-})
+});

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Contact.associate = function(models) {
-    Contact.hasMany(models.Application, {as: 'contact', constraints: false});
+    Contact.hasMany(models.Application, { as: 'contact', constraints: false });
   };
 
   return Contact;

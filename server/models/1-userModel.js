@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING,
-    phone: DataTypes.INTEGER,
+    phone: DataTypes.INTEGER
   });
 
   User.associate = function(models) {
-    User.hasMany(models.Application, {as: 'applicatons', constraints: false}); // One-To-Many relationship
+    User.hasMany(models.Application, { as: 'applicatons', constraints: false }); // One-To-Many relationship
   };
 
   return User;

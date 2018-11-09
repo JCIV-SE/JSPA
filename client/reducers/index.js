@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import jobSearchReducer from './jobSearchReducer';
 
 const reducers = combineReducers({
-  jobSearch: jobSearchReducer,
-})
+  jobSearch: jobSearchReducer
+});
 
 export default reducers;

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     totalDailyEvents: DataTypes.INTEGER,
     currentWeeklyEvents: DataTypes.INTEGER,
     currentDailyEvents: DataTypes.INTEGER
-  })
+  });
 
-  return AppsMetrics
-}
+  return AppsMetrics;
+};
